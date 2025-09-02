@@ -18,14 +18,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 X_scaled = np.load(os.path.join(script_dir, 'X_scaled.npy'))
 y = np.load(os.path.join(script_dir, 'y.npy'))
 
-# ENABLE SAMPLING FOR FASTER EXECUTION (MODIFIED TO 50%)
-sample_fraction = 0.5  # Use 50% of data for training
-sample_size = int(len(X_scaled) * sample_fraction)
-sample_indices = np.random.choice(len(X_scaled), size=sample_size, replace=False)
-X_scaled = X_scaled[sample_indices]
-y = y[sample_indices]
-
-print(f"Using sample of {len(X_scaled)} records for faster training")
+#print(f"Using sample of {len(X_scaled)} records for faster training")
 
 # Simulate anomaly labels (top/bottom 5% prices)
 y_anomaly = np.where((y > np.percentile(y, 95)) | (y < np.percentile(y, 5)), 0, 1)
