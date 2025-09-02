@@ -53,7 +53,15 @@ train_evaluate_save(dt, dt_params, 'decision_tree')
 
 # XGBoost (Advanced)
 xgb_model = xgb.XGBRegressor(objective='reg:squarederror', random_state=42)
-xgb_params = {'n_estimators': [100, 200], 'learning_rate': [0.01, 0.1], 'max_depth': [3, 6]}
+# xgb_params = {'n_estimators': [100, 200], 'learning_rate': [0.01, 0.1], 'max_depth': [3, 6]}
+xgb_params = {
+    'n_estimators': [100, 200, 300, 400],
+    'learning_rate': [0.01, 0.05, 0.1, 0.15],
+    'max_depth': [3, 5, 6, 8],
+    'subsample': [0.7, 0.8, 1.0],
+    'colsample_bytree': [0.7, 0.8, 1.0]
+}
+
 train_evaluate_save(xgb_model, xgb_params, 'xgboost')
 
 # LightGBM (Advanced)

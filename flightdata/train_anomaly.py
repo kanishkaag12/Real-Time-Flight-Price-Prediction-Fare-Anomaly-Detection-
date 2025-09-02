@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.ensemble import IsolationForest
 from sklearn.cluster import DBSCAN
 from sklearn.svm import OneClassSVM
-from sklearn.metrics import precision_score, recall_score, f1_score
+from sklearn.metrics import precision_score, recall_score, f1_score, silhouette_score
 import tensorflow as tf
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Dense
@@ -61,20 +61,39 @@ def train_evaluate_save_anomaly_simple(model, model_name, X, y_true, is_nn=False
         joblib.dump(model, os.path.join(script_dir, f"{model_name}.pkl"))
     return model
 
-# 1. Isolation Forest - Use fixed parameters instead of GridSearchCV
+# === DBSCAN Hyperparameter Tuning ===
+best_score = -1
+best_params = {}
+
+for eps in [0.3, 0.4, 0.5, 0.6]:
+    for min_samples in [3, 5, 7]:
+        db = DBSCAN(eps=eps, min_samples=min_samples)
+        labels = db.fit_predict(X_scaled)
+        # Check if meaningful clusters exist and noise present
+        if len(set(labels)) > 1 and -1 in labels:
+            mask = labels != -1  # Exclude noise for silhouette
+            score = silhouette_score(X_scaled[mask], labels[mask])
+            if score > best_score:
+                best_score = score
+                best_params = {'eps': eps, 'min_samples': min_samples}
+
+print("Best DBSCAN params:", best_params)
+
+# === Training Anomaly Detection Models ===
+# Isolation Forest with fixed parameters
 print("=== Training Anomaly Detection Models ===")
 iso = IsolationForest(random_state=42, contamination=0.05, n_jobs=1)
 train_evaluate_save_anomaly_simple(iso, 'isolation_forest', X_scaled, y_anomaly)
 
-# 2. DBSCAN - Handle separately without GridSearchCV
-db = DBSCAN(eps=0.5, min_samples=5, n_jobs=1)
-train_evaluate_save_anomaly_simple(db, 'dbscan', X_scaled, y_anomaly)
+# DBSCAN with tuned hyperparameters
+dbscan = DBSCAN(**best_params)
+train_evaluate_save_anomaly_simple(dbscan, 'dbscan', X_scaled, y_anomaly)
 
-# 3. One-Class SVM - Use fixed parameters
+# One-Class SVM with fixed parameters
 ocsvm = OneClassSVM(nu=0.05)
 train_evaluate_save_anomaly_simple(ocsvm, 'one_class_svm', X_scaled, y_anomaly)
 
-# 4. Autoencoder - Simplified and faster
+# Autoencoder - simplified architecture
 input_dim = X_scaled.shape[1]
 input_layer = Input(shape=(input_dim,))
 encoder = Dense(8, activation='relu')(input_layer)  # Smaller network
