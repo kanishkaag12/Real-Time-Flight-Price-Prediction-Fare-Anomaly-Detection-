@@ -1,0 +1,53 @@
+Using sample of 30015 records for faster training
+=== Training Anomaly Detection Models ===
+
+Starting training for isolation_forest...
+isolation_forest - Precision: 0.84, Recall: 0.05, F1: 0.09
+Training time: 1.70 seconds
+
+Starting training for dbscan...
+dbscan - Precision: 0.90, Recall: 0.79, F1: 0.85
+Training time: 7.56 seconds
+
+Starting training for one_class_svm...
+one_class_svm - Precision: 0.82, Recall: 0.05, F1: 0.09
+Training time: 20.34 seconds
+
+Starting training for autoencoder...
+
+[1m  1/938[0m [37m====================[0m [1m1:17[0m 83ms/step
+[1m 32/938[0m [37m====================[0m [1m1s[0m 2ms/step   
+[1m 63/938[0m [32m=[0m[37m===================[0m [1m1s[0m 2ms/step
+[1m 95/938[0m [32m==[0m[37m==================[0m [1m1s[0m 2ms/step
+[1m128/938[0m [32m==[0m[37m==================[0m [1m1s[0m 2ms/step
+[1m160/938[0m [32m===[0m[37m=================[0m [1m1s[0m 2ms/step
+[1m193/938[0m [32m====[0m[37m================[0m [1m1s[0m 2ms/step
+[1m225/938[0m [32m====[0m[37m================[0m [1m1s[0m 2ms/step
+[1m258/938[0m [32m=====[0m[37m===============[0m [1m1s[0m 2ms/step
+[1m290/938[0m [32m======[0m[37m==============[0m [1m1s[0m 2ms/step
+[1m322/938[0m [32m======[0m[37m==============[0m [1m0s[0m 2ms/step
+[1m354/938[0m [32m=======[0m[37m=============[0m [1m0s[0m 2ms/step
+[1m386/938[0m [32m========[0m[37m============[0m [1m0s[0m 2ms/step
+[1m418/938[0m [32m========[0m[37m============[0m [1m0s[0m 2ms/step
+[1m449/938[0m [32m=========[0m[37m===========[0m [1m0s[0m 2ms/step
+[1m481/938[0m [32m==========[0m[37m==========[0m [1m0s[0m 2ms/step
+[1m513/938[0m [32m==========[0m[37m==========[0m [1m0s[0m 2ms/step
+[1m545/938[0m [32m===========[0m[37m=========[0m [1m0s[0m 2ms/step
+[1m577/938[0m [32m============[0m[37m========[0m [1m0s[0m 2ms/step
+[1m609/938[0m [32m============[0m[37m========[0m [1m0s[0m 2ms/step
+[1m642/938[0m [32m=============[0m[37m=======[0m [1m0s[0m 2ms/step
+[1m674/938[0m [32m==============[0m[37m======[0m [1m0s[0m 2ms/step
+[1m706/938[0m [32m===============[0m[37m=====[0m [1m0s[0m 2ms/step
+[1m738/938[0m [32m===============[0m[37m=====[0m [1m0s[0m 2ms/step
+[1m770/938[0m [32m================[0m[37m====[0m [1m0s[0m 2ms/step
+[1m802/938[0m [32m=================[0m[37m===[0m [1m0s[0m 2ms/step
+[1m834/938[0m [32m=================[0m[37m===[0m [1m0s[0m 2ms/step
+[1m866/938[0m [32m==================[0m[37m==[0m [1m0s[0m 2ms/step
+[1m899/938[0m [32m===================[0m[37m=[0m [1m0s[0m 2ms/step
+[1m931/938[0m [32m===================[0m[37m=[0m [1m0s[0m 2ms/step
+[1m938/938[0m [32m====================[0m[37m[0m [1m0s[0m 2ms/step
+[1m938/938[0m [32m====================[0m[37m[0m [1m2s[0m 2ms/step
+autoencoder - Precision: 0.85, Recall: 0.05, F1: 0.09
+Training time: 11.67 seconds
+
+=== All anomaly detection models trained successfully! ===
